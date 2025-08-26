@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My Weather</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+  <h1>⛅ Live Weather <small id="place">Detecting location…</small></h1>
+  <div class="controls">
+    <input type="text" id="searchInput" placeholder="Search city or country..." />
+    <button id="searchBtn">🔍</button>
+    <button id="locBtn" title="Use my location">📍</button>
+    <button id="unitBtn" class="ghost" title="Toggle °C/°F">°C</button>
+  </div>
+</header>
+
+  <section class="card">
+    <div class="current">
+      <div>
+        <div class="temp" id="temp">--°</div>
+        <div class="condition" id="cond">—</div>
+      </div>
+      <div class="meta">
+        <div class="row"><span class="label">Feels like</span> <span id="feels">—</span></div>
+        <div class="row"><span class="label">Humidity</span> <span id="humidity">—</span></div>
+        <div class="row"><span class="label">Wind</span> <span id="wind">—</span></div>
+        <div class="row"><span class="label">UV index</span> <span id="uv">—</span></div>
+        <div class="row"><span class="label">Updated</span> <span id="updated">—</span></div>
+      </div>
+    </div>
+
+    <div class="subhead">7-day forecast</div>
+    <div id="forecast" class="forecast"></div>
+
+    <div id="status" class="footer">Tip: If location permission is blocked, click “Use my location” and allow it.</div>
+    <div class="footer">
+      Data by <a href="https://open-meteo.com/" target="_blank" rel="noreferrer">Open-Meteo</a> and reverse geocoding by 
+      <a href="https://www.bigdatacloud.com/" target="_blank" rel="noreferrer">BigDataCloud</a>.
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
