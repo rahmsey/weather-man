@@ -1,4 +1,4 @@
-:root{
+:root {
   --bg: #0f172a;
   --fg: #e2e8f0;
   --muted: #94a3b8;
@@ -31,6 +31,7 @@ header {
   justify-content: space-between;
   gap: 12px;
   margin-bottom: 16px;
+  flex-wrap: wrap; /* ✅ allows wrapping on small screens */
 }
 header h1 {
   margin: 0;
@@ -41,7 +42,7 @@ header h1 {
 header small { color: var(--muted); }
 
 /* Controls */
-.controls { display: flex; align-items: center; gap: 10px; }
+.controls { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; } /* ✅ wrap on mobile */
 button, .pill {
   border: 1px solid #ffffff22;
   background: #0b1324;
@@ -88,6 +89,7 @@ button:hover { transform: translateY(-1px); border-color: #ffffff44; }
   grid-auto-columns: minmax(120px, 1fr);
   gap: 12px;
   overflow-x: auto;
+  padding-bottom: 8px;
 }
 .tile {
   background: #0a1222;
@@ -120,4 +122,36 @@ a { color: var(--accent); }
 }
 #searchBtn {
   padding: 8px 12px;
+}
+
+/* ✅ Mobile adjustments */
+@media (max-width: 600px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .controls {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .controls input {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .current {
+    grid-template-columns: 1fr; /* stack on mobile */
+    text-align: center;
+  }
+
+  .meta {
+    justify-items: center;
+  }
+
+  .forecast {
+    grid-auto-columns: minmax(100px, 1fr); /* slightly smaller tiles */
+  }
 }
