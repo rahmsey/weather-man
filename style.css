@@ -18,31 +18,36 @@ body {
   font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif;
   background: radial-gradient(1200px 800px at 70% -10%, #1e293b, #0b1220 60%, #070b17 100%), var(--bg);
   color: var(--fg);
-  display: grid;
-  place-items: start center;
-  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 16px;
 }
 
 /* Header */
 header {
-  width: min(960px, 100%);
+  width: 100%;
+  max-width: 960px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
   margin-bottom: 16px;
-  flex-wrap: wrap; /* ✅ allows wrapping on small screens */
+  flex-wrap: wrap;
 }
 header h1 {
   margin: 0;
-  font-size: 20px;
+  font-size: clamp(1rem, 5vw, 1.5rem);
   font-weight: 600;
-  display: flex; gap: 10px; align-items: center;
+  display: flex;
+  gap: 10px;
+  align-items: center;
 }
 header small { color: var(--muted); }
 
 /* Controls */
-.controls { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; } /* ✅ wrap on mobile */
+.controls { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; width: 100%; }
 button, .pill {
   border: 1px solid #ffffff22;
   background: #0b1324;
@@ -51,18 +56,20 @@ button, .pill {
   padding: 10px 14px;
   font-weight: 600;
   cursor: pointer;
+  min-width: 0;
 }
 button:hover { transform: translateY(-1px); border-color: #ffffff44; }
 .ghost { background: transparent; }
 
 /* Card */
 .card {
-  width: min(960px, 100%);
+  width: 100%;
+  max-width: 960px;
   background: linear-gradient(180deg, #0b1324AA, #0b1324 60%);
   border: 1px solid #ffffff1f;
   border-radius: var(--radius);
   box-shadow: 0 10px 30px #00000066, inset 0 1px 0 #ffffff0d;
-  padding: 20px;
+  padding: 16px;
 }
 
 /* Current section */
@@ -73,12 +80,12 @@ button:hover { transform: translateY(-1px); border-color: #ffffff44; }
   align-items: center;
 }
 .temp {
-  font-size: clamp(42px, 7.5vw, 72px);
+  font-size: clamp(42px, 7vw, 72px);
   font-weight: 700;
 }
-.condition { font-size: 16px; color: var(--muted); margin-top: 6px; }
+.condition { font-size: clamp(12px, 3vw, 16px); color: var(--muted); margin-top: 6px; }
 .meta { display: grid; gap: 8px; }
-.meta .row { display: flex; gap: 10px; }
+.meta .row { display: flex; gap: 10px; flex-wrap: wrap; }
 .meta .label { color: var(--muted); min-width: 110px; }
 
 /* Forecast */
@@ -86,9 +93,10 @@ button:hover { transform: translateY(-1px); border-color: #ffffff44; }
 .forecast {
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: minmax(120px, 1fr);
+  grid-auto-columns: minmax(100px, 1fr);
   gap: 12px;
   overflow-x: auto;
+  scroll-padding: 8px;
   padding-bottom: 8px;
 }
 .tile {
@@ -97,6 +105,7 @@ button:hover { transform: translateY(-1px); border-color: #ffffff44; }
   border-radius: 16px;
   padding: 12px;
   text-align: center;
+  font-size: clamp(0.7rem, 2vw, 0.9rem);
 }
 .tile .day { color: var(--muted); font-size: 12px; }
 
@@ -108,6 +117,7 @@ button:hover { transform: translateY(-1px); border-color: #ffffff44; }
 .footer { margin-top: 16px; color: var(--muted); font-size: 12px; }
 a { color: var(--accent); }
 
+/* Inputs */
 #searchInput {
   padding: 8px 12px;
   border-radius: 999px;
@@ -116,42 +126,22 @@ a { color: var(--accent); }
   color: var(--fg);
   font-size: 14px;
   outline: none;
+  flex: 1;
+  min-width: 0;
 }
-#searchInput:focus {
-  border-color: var(--accent);
-}
-#searchBtn {
+#searchInput:focus { border-color: var(--accent); }
+#searchBtn, #locBtn, #unitBtn {
   padding: 8px 12px;
+  min-width: 0;
+  flex-shrink: 0;
 }
 
-/* ✅ Mobile adjustments */
+/* Mobile adjustments */
 @media (max-width: 600px) {
-  header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
-  }
-
-  .controls {
-    width: 100%;
-    justify-content: flex-start;
-  }
-
-  .controls input {
-    flex: 1;
-    min-width: 0;
-  }
-
-  .current {
-    grid-template-columns: 1fr; /* stack on mobile */
-    text-align: center;
-  }
-
-  .meta {
-    justify-items: center;
-  }
-
-  .forecast {
-    grid-auto-columns: minmax(100px, 1fr); /* slightly smaller tiles */
-  }
+  header { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .controls { justify-content: flex-start; }
+  .current { grid-template-columns: 1fr; text-align: center; }
+  .meta { justify-items: center; }
+  .forecast { grid-auto-columns: minmax(80px, 1fr); }
+  #searchInput, #searchBtn, #locBtn, #unitBtn { width: 100%; max-width: none; }
 }
